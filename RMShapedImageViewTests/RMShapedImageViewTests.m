@@ -33,6 +33,20 @@
     
 }
 
+- (UIImage*) transparentImageWithSize:(CGSize)size withOpaqueRect:(CGRect)opaqueRect
+{
+    CGRect rect = CGRectMake(0, 0, size.width, size.width);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextFillRect(context, rect);
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextFillRect(context, opaqueRect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 - (void)setUp
 {
     [super setUp];
@@ -56,5 +70,34 @@
     BOOL result = [_view pointInside:CGPointMake(0, 0) withEvent:nil];
     STAssertFalse(result, @"");
 }
+
+- (void)testPointInsideOutside
+{
+    _view = [[RMShapedImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    BOOL result = [_view pointInside:CGPointMake(-50, -50) withEvent:nil];
+    STAssertFalse(result, @"");
+}
+
+- (void)testPointInsideYES
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    CGRect opaqueRect = CGRectMake(10, 10, 10, 10);
+    _view.image = [self transparentImageWithSize:imageRect.size withOpaqueRect:opaqueRect];
+    CGPoint point = CGPointMake(CGRectGetMidX(opaqueRect), CGRectGetMidY(opaqueRect));
+    BOOL result = [_view pointInside:point withEvent:nil];
+    STAssertTrue(result, @"");
+}
+
+- (void)testPointInsideNO
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    _view.image = [self transparentImageWithSize:imageRect.size withOpaqueRect:CGRectZero];
+    CGPoint point = CGPointMake(CGRectGetMidX(imageRect), CGRectGetMidY(imageRect));
+    BOOL result = [_view pointInside:point withEvent:nil];
+    STAssertFalse(result, @"");
+}
+
 
 @end
