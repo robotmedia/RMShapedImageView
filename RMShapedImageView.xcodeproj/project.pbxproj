@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A07269B216D7ACA9001D35C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A07269B116D7ACA9001D35C4 /* UIKit.framework */; };
+		A07269B316D7ACC8001D35C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED62416D6805800135D8B /* CoreGraphics.framework */; };
+		A07269B416D7ACD5001D35C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED62416D6805800135D8B /* CoreGraphics.framework */; };
+		A07269B616D7ACFE001D35C4 /* flower@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A07269B516D7ACFE001D35C4 /* flower@2x.png */; };
+		A07269B816D7AD1F001D35C4 /* flower-no-retina.png in Resources */ = {isa = PBXBuildFile; fileRef = A07269B716D7AD1F001D35C4 /* flower-no-retina.png */; };
 		A0CED5F616D66F2300135D8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED5F516D66F2300135D8B /* Foundation.framework */; };
 		A0CED5FB16D66F2300135D8B /* RMShapedImageView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A0CED5FA16D66F2300135D8B /* RMShapedImageView.h */; };
 		A0CED5FD16D66F2300135D8B /* RMShapedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CED5FC16D66F2300135D8B /* RMShapedImageView.m */; };
@@ -52,6 +57,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A07269B116D7ACA9001D35C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A07269B516D7ACFE001D35C4 /* flower@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower@2x.png"; sourceTree = "<group>"; };
+		A07269B716D7AD1F001D35C4 /* flower-no-retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flower-no-retina.png"; sourceTree = "<group>"; };
 		A0CED5F216D66F2300135D8B /* libRMShapedImageView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRMShapedImageView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CED5F516D66F2300135D8B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A0CED5F916D66F2300135D8B /* RMShapedImageView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RMShapedImageView-Prefix.pch"; sourceTree = "<group>"; };
@@ -62,7 +70,6 @@
 		A0CED60616D66F2300135D8B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		A0CED60E16D66F2300135D8B /* RMShapedImageViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RMShapedImageViewTests-Info.plist"; sourceTree = "<group>"; };
 		A0CED61016D66F2300135D8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A0CED61216D66F2300135D8B /* RMShapedImageViewTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMShapedImageViewTests.h; sourceTree = "<group>"; };
 		A0CED61316D66F2300135D8B /* RMShapedImageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMShapedImageViewTests.m; sourceTree = "<group>"; };
 		A0CED62116D6805700135D8B /* RMShapedImageViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RMShapedImageViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CED62416D6805800135D8B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -83,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A07269B316D7ACC8001D35C4 /* CoreGraphics.framework in Frameworks */,
+				A07269B216D7ACA9001D35C4 /* UIKit.framework in Frameworks */,
 				A0CED5F616D66F2300135D8B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A07269B416D7ACD5001D35C4 /* CoreGraphics.framework in Frameworks */,
 				A0CED60516D66F2300135D8B /* SenTestingKit.framework in Frameworks */,
 				A0CED60716D66F2300135D8B /* UIKit.framework in Frameworks */,
 				A0CED60816D66F2300135D8B /* Foundation.framework in Frameworks */,
@@ -114,6 +124,7 @@
 		A0CED5E916D66F2300135D8B = {
 			isa = PBXGroup;
 			children = (
+				A07269B116D7ACA9001D35C4 /* UIKit.framework */,
 				A0CED5F716D66F2300135D8B /* RMShapedImageView */,
 				A0CED60C16D66F2300135D8B /* RMShapedImageViewTests */,
 				A0CED62616D6805800135D8B /* RMShapedImageViewDemo */,
@@ -164,7 +175,6 @@
 		A0CED60C16D66F2300135D8B /* RMShapedImageViewTests */ = {
 			isa = PBXGroup;
 			children = (
-				A0CED61216D66F2300135D8B /* RMShapedImageViewTests.h */,
 				A0CED61316D66F2300135D8B /* RMShapedImageViewTests.m */,
 				A0CED60D16D66F2300135D8B /* Supporting Files */,
 			);
@@ -183,6 +193,8 @@
 		A0CED62616D6805800135D8B /* RMShapedImageViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A07269B716D7AD1F001D35C4 /* flower-no-retina.png */,
+				A07269B516D7ACFE001D35C4 /* flower@2x.png */,
 				A0CED64216D680B200135D8B /* flower.png */,
 				A0CED62F16D6805800135D8B /* RMAppDelegate.h */,
 				A0CED63016D6805800135D8B /* RMAppDelegate.m */,
@@ -305,6 +317,8 @@
 				A0CED62B16D6805800135D8B /* InfoPlist.strings in Resources */,
 				A0CED63D16D6805800135D8B /* RMViewController.xib in Resources */,
 				A0CED64316D680B200135D8B /* flower.png in Resources */,
+				A07269B616D7ACFE001D35C4 /* flower@2x.png in Resources */,
+				A07269B816D7AD1F001D35C4 /* flower-no-retina.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
