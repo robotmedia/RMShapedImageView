@@ -96,7 +96,6 @@
 
 - (BOOL)isAlphaVisibleAtImagePoint:(CGPoint)point
 {
-    self.touchHitPixelTolerance = 3;
     CGRect imageRect = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
     NSInteger pointRectWidth = self.touchHitPixelTolerance * 2 + 1;
     CGRect pointRect = CGRectMake(point.x - self.touchHitPixelTolerance, point.y - self.touchHitPixelTolerance, pointRectWidth, pointRectWidth);
