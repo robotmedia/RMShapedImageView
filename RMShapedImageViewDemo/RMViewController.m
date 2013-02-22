@@ -10,6 +10,12 @@
 
 @implementation RMViewController
 
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    self.transformedImageView.transform = CGAffineTransformMakeScale(200, 1);
+}
+
 - (IBAction)onGestureRecognized:(id)sender
 {
     NSLog(@"Hit");
