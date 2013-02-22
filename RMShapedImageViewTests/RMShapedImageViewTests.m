@@ -33,25 +33,6 @@
     
 }
 
-- (UIImage*) transparentImageWithSize:(CGSize)size withOpaqueRect:(CGRect)opaqueRect
-{
-    CGRect rect = CGRectMake(0, 0, size.width, size.width);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
-    CGContextFillRect(context, rect);
-    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextFillRect(context, opaqueRect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-- (void)setUp
-{
-    [super setUp];
-}
-
 - (void) testInitWithFrame
 {
     _view = [[RMShapedImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -125,5 +106,53 @@
     _view.image = nil;
 }
 
+- (void)testShapedSupportedImageNil
+{
+    _view = [[RMShapedImageView alloc] init];
+    STAssertTrue(_view.shapedSupported, @"");
+}
+
+- (void)testShapedSupportedImageNotNil
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    _view.image = [self transparentImageWithSize:imageRect.size withOpaqueRect:CGRectZero];
+
+    [self _testShapedSupportedWithContentMode:UIViewContentModeScaleToFill expected:YES];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeScaleAspectFit expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeScaleAspectFill expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeRedraw expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeCenter expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeTop expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeBottom expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeLeft expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeTopLeft expected:YES];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeTopRight expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeBottomLeft expected:NO];
+    [self _testShapedSupportedWithContentMode:UIViewContentModeBottomRight expected:NO];
+}
+
+#pragma mark - Helpers
+
+- (UIImage*) transparentImageWithSize:(CGSize)size withOpaqueRect:(CGRect)opaqueRect
+{
+    CGRect rect = CGRectMake(0, 0, size.width, size.width);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextFillRect(context, rect);
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextFillRect(context, opaqueRect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+- (void)_testShapedSupportedWithContentMode:(UIViewContentMode)contentMode expected:(BOOL)expected
+{
+    _view.contentMode = contentMode;
+    BOOL result = _view.shapedSupported;
+    STAssertEquals(expected, result, @"%d", contentMode);
+}
 
 @end

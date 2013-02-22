@@ -57,15 +57,11 @@
 {
     BOOL superResult = [super pointInside:point withEvent:event];
     if (!superResult) return NO;
-    
+    if (!self.shapedSupported) return YES;
     if (!self.image) return NO;
+    if (CGPointEqualToPoint(point, _previousPoint)) return _previousPointInsideResult;
     
-    if (CGPointEqualToPoint(point, _previousPoint)) {
-        return _previousPointInsideResult;
-    } else {
-        _previousPoint = point;
-    }
-    
+    _previousPoint = point;
     BOOL result = [self isAlphaVisibleAtPoint:point];
     _previousPointInsideResult = result;
     return result;
@@ -79,16 +75,37 @@
     [self resetPointInsideCache];
 }
 
+#pragma mark - RMShapedImageView
+
+- (BOOL) shapedSupported
+{
+    if (!self.image) return YES;
+    switch (self.contentMode)
+    {
+        case UIViewContentModeScaleToFill:
+        case UIViewContentModeTopLeft:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
 #pragma mark - Private
 
 - (BOOL)isAlphaVisibleAtPoint:(CGPoint)point
 {
-    if (self.contentMode == UIViewContentModeScaleToFill)
-    {
-        CGSize imageSize = self.image.size;
-        CGSize boundsSize = self.bounds.size;
-        point.x *= (boundsSize.width != 0) ? (imageSize.width / boundsSize.width) : 1;
-        point.y *= (boundsSize.height != 0) ? (imageSize.height / boundsSize.height) : 1;
+    switch (self.contentMode) {
+        case UIViewContentModeScaleToFill:
+        {
+            CGSize imageSize = self.image.size;
+            CGSize boundsSize = self.bounds.size;
+            point.x *= (boundsSize.width != 0) ? (imageSize.width / boundsSize.width) : 1;
+            point.y *= (boundsSize.height != 0) ? (imageSize.height / boundsSize.height) : 1;
+        }
+        case UIViewContentModeTopLeft: // Do nothing
+            break;
+        default: // TODO: Handle the rest of contentMode values
+            break;
     }
     
     return [self isAlphaVisibleAtImagePoint:point];
@@ -97,8 +114,8 @@
 - (BOOL)isAlphaVisibleAtImagePoint:(CGPoint)point
 {
     CGRect imageRect = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
-    NSInteger pointRectWidth = self.shapedTouchPixelTolerance * 2 + 1;
-    CGRect pointRect = CGRectMake(point.x - self.shapedTouchPixelTolerance, point.y - self.shapedTouchPixelTolerance, pointRectWidth, pointRectWidth);
+    NSInteger pointRectWidth = self.shapedPixelTolerance * 2 + 1;
+    CGRect pointRect = CGRectMake(point.x - self.shapedPixelTolerance, point.y - self.shapedPixelTolerance, pointRectWidth, pointRectWidth);
     CGRect queryRect = CGRectIntersection(imageRect, pointRect);
     if (CGRectIsNull(queryRect)) return NO;
     
@@ -127,7 +144,7 @@
     {
         unsigned char *colors = pixelData[i];
         CGFloat alpha = colors[3] / 255.0;
-        if (alpha > self.shapedTouchMaxAlpha)
+        if (alpha > self.shapedTransparentMaxAlpha)
         {
             return YES;
         }
