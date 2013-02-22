@@ -99,5 +99,31 @@
     STAssertFalse(result, @"");
 }
 
+- (void)testPointInsideTwice
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    CGRect opaqueRect = CGRectMake(10, 10, 10, 10);
+    _view.image = [self transparentImageWithSize:imageRect.size withOpaqueRect:opaqueRect];
+    CGPoint point = CGPointMake(CGRectGetMidX(opaqueRect), CGRectGetMidY(opaqueRect));
+    [_view pointInside:point withEvent:nil];
+    BOOL result = [_view pointInside:point withEvent:nil];
+    STAssertTrue(result, @"");
+}
+
+- (void)testSetImage
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    _view.image = [self transparentImageWithSize:imageRect.size withOpaqueRect:CGRectZero];
+}
+
+- (void)testSetImageNil
+{
+    CGRect imageRect = CGRectMake(0, 0, 50, 50);
+    _view = [[RMShapedImageView alloc] initWithFrame:imageRect];
+    _view.image = nil;
+}
+
 
 @end
