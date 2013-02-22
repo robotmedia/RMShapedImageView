@@ -25,7 +25,12 @@
 
 @interface RMShapedImageView : UIImageView
 
-@property (nonatomic, assign) NSUInteger touchHitPixelTolerance;
-@property (nonatomic, assign) CGFloat touchHitMinAlpha;
+/** Number of pixels around the point that will be examined. If at least of them has alpha bigger than shapedTouchMaxAlpha pointInside:withEvent: will return true. 0 by default.
+ */
+@property (nonatomic, assign) NSUInteger shapedTouchPixelTolerance;
+
+/** Maximum alpha value that will be considered transparent. 0 by default.
+ */
+@property (nonatomic, assign) CGFloat shapedTouchMaxAlpha;
 
 @end

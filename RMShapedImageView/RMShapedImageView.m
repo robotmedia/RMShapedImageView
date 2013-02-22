@@ -97,8 +97,8 @@
 - (BOOL)isAlphaVisibleAtImagePoint:(CGPoint)point
 {
     CGRect imageRect = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
-    NSInteger pointRectWidth = self.touchHitPixelTolerance * 2 + 1;
-    CGRect pointRect = CGRectMake(point.x - self.touchHitPixelTolerance, point.y - self.touchHitPixelTolerance, pointRectWidth, pointRectWidth);
+    NSInteger pointRectWidth = self.shapedTouchPixelTolerance * 2 + 1;
+    CGRect pointRect = CGRectMake(point.x - self.shapedTouchPixelTolerance, point.y - self.shapedTouchPixelTolerance, pointRectWidth, pointRectWidth);
     CGRect queryRect = CGRectIntersection(imageRect, pointRect);
     if (CGRectIsNull(queryRect)) return NO;
     
@@ -127,7 +127,7 @@
     {
         unsigned char *colors = pixelData[i];
         CGFloat alpha = colors[3] / 255.0;
-        if (alpha > self.touchHitMinAlpha)
+        if (alpha > self.shapedTouchMaxAlpha)
         {
             return YES;
         }
