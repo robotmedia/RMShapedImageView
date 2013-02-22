@@ -21,27 +21,40 @@
 //  Copyright (c) 2013 Robot Media. All rights reserved.
 //
 
-#import "RMShapedImageViewTests.h"
+#import <SenTestingKit/SenTestingKit.h>
+#import "RMShapedImageView.h"
 
-@implementation RMShapedImageViewTests
+@interface RMShapedImageViewTests : SenTestCase
+
+@end
+
+@implementation RMShapedImageViewTests {
+    RMShapedImageView *_view;
+    
+}
 
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
 }
 
-- (void)tearDown
+- (void) testInitWithFrame
 {
-    // Tear-down code here.
-    
-    [super tearDown];
+    _view = [[RMShapedImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    STAssertNotNil(_view, @"");
 }
 
-- (void)testExample
+- (void) testInitWithCoder
 {
-    STFail(@"Unit tests are not implemented yet in RMShapedImageViewTests");
+    _view = [[RMShapedImageView alloc] initWithCoder:nil];
+    STAssertNotNil(_view, @"");
+}
+
+- (void)testPointInsideImageNil
+{
+    _view = [[RMShapedImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    BOOL result = [_view pointInside:CGPointMake(0, 0) withEvent:nil];
+    STAssertFalse(result, @"");
 }
 
 @end
