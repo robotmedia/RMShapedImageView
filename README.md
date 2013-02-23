@@ -10,6 +10,14 @@ Usage
 2. Replace your `UIImageView` with `RMShapedImageView` either in code or Interface Builder (by setting the Class of your `UIImageView` to `RMShapedImageView`).
 3. Profit! 
 
+Configuration
+-------------
+
+Touches are inexact things and querying the alpha value of a single pixel might be too strict, even more so if the image is scaled down. Furthermore, if the image has shadows you might also want to ignore touches on them. `RMShapedImageView` has two configuration options to work around these problems:
+
+* `shapedTransparentMaxAlpha`: maximum alpha value that will be considered transparent. 0 by default.
+* `shapedPixelTolerance`: number of pixels around the point that will be examined. If at least one of them has alpha bigger than `shapedTransparentMaxAlpha` `pointInside:withEvent:` will return `YES`. 0 by default.
+
 License
 -------
 
