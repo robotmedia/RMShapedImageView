@@ -3,6 +3,13 @@ RMShapedImageView
 
 A `UIImageView` subclass that ignores touches on transparent pixels. Based on [OBShapedButton](https://github.com/ole/OBShapedButton) by Ole Begemann.
 
+Usage
+-----
+
+1. Add [`RMShapedImageView.h`](https://github.com/robotmedia/RMShapedImageView/blob/master/RMShapedImageView/RMShapedImageView.h) and [`RMShapedImageView.m`](https://github.com/robotmedia/RMShapedImageView/blob/master/RMShapedImageView/RMShapedImageView.m) to your project.
+2. Replace your `UIImageView` with `RMShapedImageView` either in code or Interface Builder (by setting the Class of your `UIImageView` to `RMShapedImageView`).
+3. Profit! 
+
 License
 -------
 
