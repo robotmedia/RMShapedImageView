@@ -102,6 +102,7 @@
             point.x *= (boundsSize.width != 0) ? (imageSize.width / boundsSize.width) : 1;
             point.y *= (boundsSize.height != 0) ? (imageSize.height / boundsSize.height) : 1;
         }
+            break;
         case UIViewContentModeTopLeft: // Do nothing
             break;
         default: // TODO: Handle the rest of contentMode values
