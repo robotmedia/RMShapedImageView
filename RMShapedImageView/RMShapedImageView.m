@@ -122,16 +122,15 @@
     
     // TODO: Do we really need to get the whole color information? See: http://stackoverflow.com/questions/15008270/get-alpha-channel-from-uiimage-rectangle
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    int bytesPerPixel = 4;
-    int bytesPerRow = bytesPerPixel * 1;
+    NSUInteger bytesPerPixel = sizeof(unsigned char) * 4;
     NSUInteger bitsPerComponent = 8;
     NSUInteger pixelCount = queryRect.size.width * queryRect.size.height;
-    unsigned char pixelData[pixelCount][4];
-    CGContextRef context = CGBitmapContextCreate(pixelData,
+    unsigned char *data = (unsigned char*) calloc(pixelCount * 4, sizeof(unsigned char));
+    CGContextRef context = CGBitmapContextCreate(data,
                                                  queryRect.size.width,
                                                  queryRect.size.height,
                                                  bitsPerComponent,
-                                                 bytesPerRow * queryRect.size.width,
+                                                 bytesPerPixel * queryRect.size.width,
                                                  colorSpace,
                                                  kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGColorSpaceRelease(colorSpace);
@@ -143,8 +142,9 @@
     
     for (int i = 0; i < pixelCount; i++)
     {
-        unsigned char *colors = pixelData[i];
-        CGFloat alpha = colors[3] / 255.0;
+        int j = i * 4;
+        unsigned char alphaChar = data[j + 3];
+        CGFloat alpha = alphaChar / 255.0;
         if (alpha > self.shapedTransparentMaxAlpha)
         {
             return YES;
