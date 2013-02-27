@@ -150,6 +150,7 @@
             return YES;
         }
     }
+    free(data);
     return NO;
 }
 
