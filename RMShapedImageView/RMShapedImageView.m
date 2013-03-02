@@ -120,38 +120,37 @@
     CGRect queryRect = CGRectIntersection(imageRect, pointRect);
     if (CGRectIsNull(queryRect)) return NO;
     
-    // TODO: Do we really need to get the whole color information? See: http://stackoverflow.com/questions/15008270/get-alpha-channel-from-uiimage-rectangle
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    NSUInteger bytesPerPixel = sizeof(unsigned char) * 4;
+    // TODO: Wouldn't it be better to use drawInRect:. See: http://stackoverflow.com/questions/15008270/get-alpha-channel-from-uiimage-rectangle
+    CGSize querySize = queryRect.size;
+    NSUInteger bytesPerPixel = sizeof(unsigned char);
     NSUInteger bitsPerComponent = 8;
-    NSUInteger pixelCount = queryRect.size.width * queryRect.size.height;
-    unsigned char *data = (unsigned char*) calloc(pixelCount * 4, sizeof(unsigned char));
+    NSUInteger pixelCount = querySize.width * querySize.height;
+    unsigned char *data = (unsigned char*) calloc(pixelCount, bytesPerPixel);
     CGContextRef context = CGBitmapContextCreate(data,
-                                                 queryRect.size.width,
-                                                 queryRect.size.height,
+                                                 querySize.width,
+                                                 querySize.height,
                                                  bitsPerComponent,
-                                                 bytesPerPixel * queryRect.size.width,
-                                                 colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
+                                                 bytesPerPixel * querySize.width,
+                                                 NULL,
+                                                 kCGImageAlphaOnly);
     CGContextSetBlendMode(context, kCGBlendModeCopy);
     
     CGContextTranslateCTM(context, -queryRect.origin.x, queryRect.origin.y-(CGFloat)self.image.size.height);
     CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, (CGFloat)self.image.size.width, (CGFloat)self.image.size.height), self.image.CGImage);
-    CGContextRelease(context);
     
     for (int i = 0; i < pixelCount; i++)
     {
-        int j = i * 4;
-        unsigned char alphaChar = data[j + 3];
+        unsigned char alphaChar = data[i];
         CGFloat alpha = alphaChar / 255.0;
         if (alpha > self.shapedTransparentMaxAlpha)
         {
             return YES;
         }
     }
+    CGContextRelease(context);
     free(data);
     return NO;
+
 }
 
 - (void)resetPointInsideCache
