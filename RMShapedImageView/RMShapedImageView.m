@@ -38,7 +38,6 @@
     }
     return self;
 }
-
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
@@ -62,7 +61,11 @@
     if (CGPointEqualToPoint(point, _previousPoint)) return _previousPointInsideResult;
     
     _previousPoint = point;
-    BOOL result = [self isAlphaVisibleAtPoint:point];
+    
+    // Image might be scaled or translated due to contentMode. We want to convert the view point into an image point first.
+    CGPoint imagePoint = [self imagePointFromViewPoint:point];
+
+    BOOL result = [self isAlphaVisibleAtImagePoint:imagePoint];
     _previousPointInsideResult = result;
     return result;
 }
@@ -92,49 +95,56 @@
 
 #pragma mark - Private
 
-- (BOOL)isAlphaVisibleAtPoint:(CGPoint)point
+- (CGPoint)imagePointFromViewPoint:(CGPoint)viewPoint
 {
     switch (self.contentMode) {
         case UIViewContentModeScaleToFill:
         {
             CGSize imageSize = self.image.size;
             CGSize boundsSize = self.bounds.size;
-            point.x *= (boundsSize.width != 0) ? (imageSize.width / boundsSize.width) : 1;
-            point.y *= (boundsSize.height != 0) ? (imageSize.height / boundsSize.height) : 1;
+            viewPoint.x *= (boundsSize.width != 0) ? (imageSize.width / boundsSize.width) : 1;
+            viewPoint.y *= (boundsSize.height != 0) ? (imageSize.height / boundsSize.height) : 1;
+            return viewPoint;
         }
             break;
-        case UIViewContentModeTopLeft: // Do nothing
-            break;
+        case UIViewContentModeTopLeft:
+            return viewPoint;
         default: // TODO: Handle the rest of contentMode values
-            break;
+            return viewPoint;
     }
-    
-    return [self isAlphaVisibleAtImagePoint:point];
 }
 
 - (BOOL)isAlphaVisibleAtImagePoint:(CGPoint)point
 {
-    CGRect imageRect = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
-    NSInteger pointRectWidth = self.shapedPixelTolerance * 2 + 1;
-    CGRect pointRect = CGRectMake(point.x - self.shapedPixelTolerance, point.y - self.shapedPixelTolerance, pointRectWidth, pointRectWidth);
-    CGRect queryRect = CGRectIntersection(imageRect, pointRect);
-    if (CGRectIsNull(queryRect)) return NO;
+    CGRect queryRect;
+    {
+        CGRect imageRect = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
+        NSInteger pointRectWidth = self.shapedPixelTolerance * 2 + 1;
+        CGRect pointRect = CGRectMake(point.x - self.shapedPixelTolerance, point.y - self.shapedPixelTolerance, pointRectWidth, pointRectWidth);
+        queryRect = CGRectIntersection(imageRect, pointRect);
+        if (CGRectIsNull(queryRect)) return NO;
+    }
     
-    // TODO: Wouldn't it be better to use drawInRect:. See: http://stackoverflow.com/questions/15008270/get-alpha-channel-from-uiimage-rectangle
-    CGSize querySize = queryRect.size;
-    NSUInteger bytesPerPixel = sizeof(unsigned char);
-    NSUInteger bitsPerComponent = 8;
-    NSUInteger pixelCount = querySize.width * querySize.height;
-    unsigned char *data = (unsigned char*) calloc(pixelCount, bytesPerPixel);
-    CGContextRef context = CGBitmapContextCreate(data,
-                                                 querySize.width,
-                                                 querySize.height,
-                                                 bitsPerComponent,
-                                                 bytesPerPixel * querySize.width,
-                                                 NULL,
-                                                 kCGImageAlphaOnly);
+    CGContextRef context;
+    unsigned char *data;
+    NSUInteger pixelCount;
+    {
+        // TODO: Wouldn't it be better to use drawInRect:. See: http://stackoverflow.com/questions/15008270/get-alpha-channel-from-uiimage-rectangle
+        CGSize querySize = queryRect.size;
+        NSUInteger bytesPerPixel = sizeof(unsigned char);
+        const NSUInteger bitsPerComponent = 8;
+        pixelCount = querySize.width * querySize.height;
+        data = (unsigned char*) calloc(pixelCount, bytesPerPixel);
+        context = CGBitmapContextCreate(data,
+                                        querySize.width,
+                                        querySize.height,
+                                        bitsPerComponent,
+                                        bytesPerPixel * querySize.width,
+                                        NULL, // colorspace can be NULL when using kCGImageAlphaOnly. See: http://developer.apple.com/library/mac/#qa/qa1037/_index.html
+                                        kCGImageAlphaOnly);
+    }
+
     CGContextSetBlendMode(context, kCGBlendModeCopy);
-    
     CGContextTranslateCTM(context, -queryRect.origin.x, queryRect.origin.y-(CGFloat)self.image.size.height);
     CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, (CGFloat)self.image.size.width, (CGFloat)self.image.size.height), self.image.CGImage);
     
@@ -142,15 +152,11 @@
     {
         unsigned char alphaChar = data[i];
         CGFloat alpha = alphaChar / 255.0;
-        if (alpha > self.shapedTransparentMaxAlpha)
-        {
-            return YES;
-        }
+        if (alpha > self.shapedTransparentMaxAlpha) return YES;
     }
     CGContextRelease(context);
     free(data);
     return NO;
-
 }
 
 - (void)resetPointInsideCache
