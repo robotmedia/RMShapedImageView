@@ -30,7 +30,6 @@
 
 @implementation RMShapedImageViewTests {
     RMShapedImageView *_view;
-    
 }
 
 - (void) testInitWithFrame
