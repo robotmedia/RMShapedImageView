@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0359CA617037537007DA6D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A07269B116D7ACA9001D35C4 /* UIKit.framework */; };
+		A0359CA717037546007DA6D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A07269B116D7ACA9001D35C4 /* UIKit.framework */; };
 		A07269B216D7ACA9001D35C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A07269B116D7ACA9001D35C4 /* UIKit.framework */; };
 		A07269B316D7ACC8001D35C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED62416D6805800135D8B /* CoreGraphics.framework */; };
 		A07269B416D7ACD5001D35C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED62416D6805800135D8B /* CoreGraphics.framework */; };
@@ -16,12 +18,10 @@
 		A0CED5FB16D66F2300135D8B /* RMShapedImageView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A0CED5FA16D66F2300135D8B /* RMShapedImageView.h */; };
 		A0CED5FD16D66F2300135D8B /* RMShapedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CED5FC16D66F2300135D8B /* RMShapedImageView.m */; };
 		A0CED60516D66F2300135D8B /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED60416D66F2300135D8B /* SenTestingKit.framework */; };
-		A0CED60716D66F2300135D8B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED60616D66F2300135D8B /* UIKit.framework */; };
 		A0CED60816D66F2300135D8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED5F516D66F2300135D8B /* Foundation.framework */; };
 		A0CED60B16D66F2300135D8B /* libRMShapedImageView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED5F216D66F2300135D8B /* libRMShapedImageView.a */; };
 		A0CED61116D66F2300135D8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0CED60F16D66F2300135D8B /* InfoPlist.strings */; };
 		A0CED61416D66F2300135D8B /* RMShapedImageViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CED61316D66F2300135D8B /* RMShapedImageViewTests.m */; };
-		A0CED62216D6805800135D8B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED60616D66F2300135D8B /* UIKit.framework */; };
 		A0CED62316D6805800135D8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED5F516D66F2300135D8B /* Foundation.framework */; };
 		A0CED62516D6805800135D8B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0CED62416D6805800135D8B /* CoreGraphics.framework */; };
 		A0CED62B16D6805800135D8B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0CED62916D6805800135D8B /* InfoPlist.strings */; };
@@ -67,7 +67,6 @@
 		A0CED5FC16D66F2300135D8B /* RMShapedImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMShapedImageView.m; sourceTree = "<group>"; };
 		A0CED60316D66F2300135D8B /* RMShapedImageViewTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RMShapedImageViewTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0CED60416D66F2300135D8B /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		A0CED60616D66F2300135D8B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		A0CED60E16D66F2300135D8B /* RMShapedImageViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RMShapedImageViewTests-Info.plist"; sourceTree = "<group>"; };
 		A0CED61016D66F2300135D8B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A0CED61316D66F2300135D8B /* RMShapedImageViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMShapedImageViewTests.m; sourceTree = "<group>"; };
@@ -100,9 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0359CA717037546007DA6D3 /* UIKit.framework in Frameworks */,
 				A07269B416D7ACD5001D35C4 /* CoreGraphics.framework in Frameworks */,
 				A0CED60516D66F2300135D8B /* SenTestingKit.framework in Frameworks */,
-				A0CED60716D66F2300135D8B /* UIKit.framework in Frameworks */,
 				A0CED60816D66F2300135D8B /* Foundation.framework in Frameworks */,
 				A0CED60B16D66F2300135D8B /* libRMShapedImageView.a in Frameworks */,
 			);
@@ -112,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0CED62216D6805800135D8B /* UIKit.framework in Frameworks */,
+				A0359CA617037537007DA6D3 /* UIKit.framework in Frameworks */,
 				A0CED62316D6805800135D8B /* Foundation.framework in Frameworks */,
 				A0CED62516D6805800135D8B /* CoreGraphics.framework in Frameworks */,
 			);
@@ -124,7 +123,6 @@
 		A0CED5E916D66F2300135D8B = {
 			isa = PBXGroup;
 			children = (
-				A07269B116D7ACA9001D35C4 /* UIKit.framework */,
 				A0CED5F716D66F2300135D8B /* RMShapedImageView */,
 				A0CED60C16D66F2300135D8B /* RMShapedImageViewTests */,
 				A0CED62616D6805800135D8B /* RMShapedImageViewDemo */,
@@ -146,10 +144,10 @@
 		A0CED5F416D66F2300135D8B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0CED62416D6805800135D8B /* CoreGraphics.framework */,
 				A0CED5F516D66F2300135D8B /* Foundation.framework */,
 				A0CED60416D66F2300135D8B /* SenTestingKit.framework */,
-				A0CED60616D66F2300135D8B /* UIKit.framework */,
-				A0CED62416D6805800135D8B /* CoreGraphics.framework */,
+				A07269B116D7ACA9001D35C4 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
