@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "RMShapedImageView"
   s.version      = "0.1"
+  s.license      = "Apache 2.0"
   s.summary      = "A UIImageView subclass that ignores touches on transparent pixels."
   s.homepage     = "https://github.com/robotmedia/RMShapedImageView"
   s.author       = 'Hermes Pique'
