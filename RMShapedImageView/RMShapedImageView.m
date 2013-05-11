@@ -152,7 +152,12 @@
     {
         unsigned char alphaChar = data[i];
         CGFloat alpha = alphaChar / 255.0;
-        if (alpha > self.shapedTransparentMaxAlpha) return YES;
+        if (alpha > self.shapedTransparentMaxAlpha)
+        {
+            CGContextRelease(context);
+            free(data);
+            return YES;
+        }
     }
     CGContextRelease(context);
     free(data);
