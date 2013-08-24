@@ -1,5 +1,6 @@
 RMShapedImageView
 =================
+[![Build Status](https://travis-ci.org/robotmedia/RMShapedImageView.png)](https://travis-ci.org/robotmedia/RMShapedImageView)
 
 A `UIImageView` subclass that ignores touches on transparent pixels, based on [OBShapedButton](https://github.com/ole/OBShapedButton) by Ole Begemann. 
 
