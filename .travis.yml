@@ -1,0 +1,4 @@
+language: objective-c
+script: 
+  - xctool -project RMShapedImageView.xcodeproj -scheme 'RMShapedImageView' -configuration Release -sdk iphonesimulator test
+  - xctool -project RMShapedImageView.xcodeproj -scheme 'RMShapedImageViewDemo' -configuration Release -sdk iphonesimulator
