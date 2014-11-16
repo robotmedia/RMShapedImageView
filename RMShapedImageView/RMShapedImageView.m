@@ -143,7 +143,11 @@
                                         NULL, // colorspace can be NULL when using kCGImageAlphaOnly. See: http://developer.apple.com/library/mac/#qa/qa1037/_index.html
                                         kCGImageAlphaOnly);
     }
-
+    
+    if (!context) {
+        return NO;
+    }
+    
     CGContextSetBlendMode(context, kCGBlendModeCopy);
     CGContextTranslateCTM(context, -queryRect.origin.x, queryRect.origin.y-(CGFloat)self.image.size.height);
     CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, (CGFloat)self.image.size.width, (CGFloat)self.image.size.height), self.image.CGImage);
